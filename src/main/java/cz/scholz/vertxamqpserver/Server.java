@@ -28,7 +28,13 @@ public class Server extends AbstractVerticle {
         pc.receiverOpenHandler(this::connectionReceiverOpenHandler);
         pc.senderOpenHandler(this::connectionSenderOpenHandler);
         pc.sessionOpenHandler(this::connectionSessionOpenHandler);
+        pc.disconnectHandler(this::disconnectHandler);
         //pc.open();
+    }
+
+    private void disconnectHandler(ProtonConnection protonConnection) {
+        LOG.info("Connection disconnected");
+        protonConnection.disconnect();
     }
 
     private void connectionSessionOpenHandler(ProtonSession protonSession) {
